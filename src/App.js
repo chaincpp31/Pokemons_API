@@ -7,9 +7,11 @@ const API_PO_KE =
 function Pokedex() {
   // const pokemon = await fetch(`$(API_PO_KE)`)
   const [pokes, setPokes] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log(useEffect);
+    setLoading(true);
     fetch(API_PO_KE)
       .then((show_poke) => show_poke.json())
       .then((api_poke) => setPokes(api_poke.results));
