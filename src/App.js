@@ -8,29 +8,30 @@ function Pokedex() {
   // const pokemon = await fetch(`$(API_PO_KE)`)
   const [pokesData, setPokesData] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [error, setError] = useState(undefined);
 
-  // useEffect(() => {
-  //   console.log(useEffect);
-  //   setLoading(true);
-  //   fetch(API_PO_KE)
-  //     .then((show_data) => show_data.json())
-  // .then((data) => setPokesData(data.results))
-  // .finally(setLoading(false));
-  // }, []);
-  // console.log(API_PO_KE);
+  const FetchData = async () => {
+    setLoading(true);
+    try {
+      fetch(API_PO_KE)
+        .then((show_data) => show_data.json())
+        .then((data) => setPokesData(data.results))
+        .finally(setLoading(false));
+    } catch {
+      setError("Error!! can not pull API");
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    setLoading(true);
-    fetch(API_PO_KE)
-      .then((show_data) => show_data.json())
-      .then((data) => setPokesData(data.results))
-      .finally(setLoading(false));
+    FetchData();
   }, []);
 
   return (
     <React.Fragment>
       <h1>Pokedex</h1>
-      {!Loading && (
+      <h3>{error}</h3>
+      {!Loading && pokesData && (
         <ul>
           {pokesData.map((pokemon) => (
             <li>{pokemon.name}</li>
