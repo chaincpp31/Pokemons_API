@@ -7,7 +7,7 @@ const API_PO_KE =
 function Pokedex() {
   // const pokemon = await fetch(`$(API_PO_KE)`)
   const [pokesData, setPokesData] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   // useEffect(() => {
   //   console.log(useEffect);
@@ -30,7 +30,7 @@ function Pokedex() {
   return (
     <React.Fragment>
       <h1>Pokedex</h1>
-      {!isLoading && (
+      {!Loading && (
         <ul>
           {pokesData.map((pokemon) => (
             <li>{pokemon.name}</li>
