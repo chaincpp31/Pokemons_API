@@ -6,28 +6,37 @@ const API_PO_KE =
 
 function Pokedex() {
   // const pokemon = await fetch(`$(API_PO_KE)`)
-  const [pokes, setPokes] = useState([]);
+  const [pokesData, setPokesData] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   console.log(useEffect);
+  //   setLoading(true);
+  //   fetch(API_PO_KE)
+  //     .then((show_data) => show_data.json())
+  // .then((data) => setPokesData(data.results))
+  // .finally(setLoading(false));
+  // }, []);
+  // console.log(API_PO_KE);
+
   useEffect(() => {
-    console.log(useEffect);
     setLoading(true);
     fetch(API_PO_KE)
-      .then((show_poke) => show_poke.json())
-      .then((api_poke) => setPokes(api_poke.results));
+      .then((show_data) => show_data.json())
+      .then((data) => setPokesData(data.results))
+      .finally(setLoading(false));
   }, []);
-  console.log(API_PO_KE);
 
   return (
     <React.Fragment>
       <h1>Pokedex</h1>
-      {
+      {!isLoading && (
         <ul>
-          {pokes.map((pokemon) => (
+          {pokesData.map((pokemon) => (
             <li>{pokemon.name}</li>
           ))}
         </ul>
-      }
+      )}
     </React.Fragment>
   );
 }
